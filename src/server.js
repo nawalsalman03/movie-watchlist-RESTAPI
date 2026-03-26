@@ -1,12 +1,14 @@
 //here i'll create api,listen to it,manage entire app from this file
-import express from "express";
 import { config } from "dotenv";
+config();
+import express from "express";
+
+
 import {connectDB,disconnectDB} from "./config/db.js";
 //import routes
 import movieRoutes from "./routes/movieRoutes.js";
 
 import authRoutes from "./routes/authRoutes.js";
-config();
 connectDB();
 
 
@@ -15,6 +17,9 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
+app.get('/test', (req, res) => {
+  res.json({ message: 'Server is running on port 5001' });
+});
 
 //api routes
 //app.use(express.json());
