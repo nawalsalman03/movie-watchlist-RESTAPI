@@ -1,0 +1,24 @@
+import {z} from 'zod';
+
+const addToWatchlistSchema = z.object({
+    movieId: z.string().uuid(),
+    status: z.enum([
+        "PLANNED",
+        "WATCHING",
+        "COMPLETED",
+        "DROPPED", 
+    ], {
+        
+        message: "status must be one of PLANNED, WATCHING, COMPLETED, DROPPED"
+        
+    }).optional(),
+    rating: z.coerce
+    .number()
+    .int("rating must be an integer")
+    .min(1, "rating must be between 1 and 10")
+    .max(10, "rating must be between 1 and 10")
+    .optional(),
+    notes: z.string().optional(),
+});    
+
+export {addToWatchlistSchema};

@@ -29,7 +29,7 @@ app.use("/auth", authRoutes);
 app.use("/watchlist", watchlistRoutes);
 
 const PORT = 5001;
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 //handle unhandled promise rejections e.g db conn errors
@@ -51,8 +51,10 @@ process.on("uncaughtException",async (err)=>{
 //graceful shutdown on SIGINT and SIGTERM signals
 process.on("SIGTERM",async ()=>{
   console.log("SIGTERM received, shutting down gracefully...");
-  await disconnectDB();
-  process.exit(0);
+  server.close(async ()=>{
+    await disconnectDB();
+    process.exit(0);
+  });
 });
 
 
