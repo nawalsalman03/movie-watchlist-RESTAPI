@@ -5,12 +5,12 @@
 
 generator client {
   provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  output   = "../src/generated"
 }
 
 datasource db {
   provider = "postgresql"
-  url = env("DATABASE_URL")
+  url      = env("DATABASE_URL")
 }
 
 //USER ->MOVIES->WATCHLIST
@@ -56,6 +56,8 @@ model WatchlistItem {
   //relations
   user User @relation(fields: [userId], references: [id],onDelete: Cascade)
   movie Movie @relation(fields: [movieId], references: [id],onDelete: Cascade)
+
+  @@unique([userId, movieId])
 
 }
 
