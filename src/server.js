@@ -21,6 +21,11 @@ app.get('/test', (req, res) => {
   res.json({ message: 'Server is running on port 5001' });
 });
 
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'OK', message: 'API is running' });
+});
+
+
 //api routes
 //app.use(express.json());
 
